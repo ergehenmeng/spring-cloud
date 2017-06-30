@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration  xmlns="http://ch.qos.logback/xml/ns/logback"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://ch.qos.logback/xml/ns/logback http://ch.qos.logback/xml/ns/logback/logback.xsd"
+	scan="true" scanPeriod="600000" debug="false" >
+	<!-- scan:日志文件改变时,自动重新加载配置,scanPeriod:scan为true 检测改变间隔 默认60秒 单位毫秒 debug:是否打印logback内部日志 -->
+	
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<target>System.out</target>
+		<encoder>
+			<pattern>[%d{MM/dd HH:mm:ss}] %-5level %logger{36}:%L %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>info</level>
+		</filter>
+	</appender>
+	<appender name="infoFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.home}/logs/info/info.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.home}/logs/info/info-%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		<encoder>
+			<pattern>[%d{MM/dd HH:mm:ss}] %-5level %logger{36}:%L %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>info</level>
+		</filter>
+	</appender>
+	
+	<appender name="errorFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${catalina.home}/logs/error/error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.home}/logs/error/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		
+		<encoder>
+			<pattern>[%d{MM/dd HH:mm:ss}] %-5level %logger{36}:%L %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>error</level>
+		</filter>
+	</appender>
+	
+	<appender name="tenderFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		
+		<file>${catalina.home}/logs/tender/tender.log</file>
+		
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${catalina.home}/logs/tender/tender-%d{yyyy-MM-dd}.log</fileNamePattern>
+		</rollingPolicy>
+		
+		<encoder>
+			<pattern>[%d{MM/dd HH:mm:ss}] %-5level %logger{36}:%L %msg%n</pattern>
+		</encoder>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>debug</level>
+		</filter>
+	</appender>
+	
+	<logger name="jdbc.connection" level="OFF" />
+	<logger name="jdbc.resultset" level="OFF" />
+	<logger name="jdbc.audit" level="OFF" />
+	<logger name="jdbc.sqlonly" level="INFO" />
+	<logger name="jdbc.sqltiming" level="OFF" />
+	
+	<root level="debug">
+		<appender-ref ref="console" />
+		<appender-ref ref="infoFile" />
+		<appender-ref ref="errorFile" />
+		<appender-ref ref="tenderFile" />
+	</root>
+</configuration>

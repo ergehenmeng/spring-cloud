@@ -3,8 +3,7 @@ package com.fanyin.entity;
 import java.io.Serializable;
 
 /**
- * @author fanyin
- * @create 2017-06-29 13:45
+ * Created by fanyin on 2017-07-03 14:34.
  */
 public class User implements Serializable{
 
@@ -14,18 +13,17 @@ public class User implements Serializable{
 
     private Integer age;
 
-    public User(Long id, String name, Integer age) {
-        this.id = id;
-        this.name = name;
-        this.age = age;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public User(String name, Integer age) {
+        this.name = name;
+        this.age = age;
     }
 
     public String getName() {
@@ -47,8 +45,7 @@ public class User implements Serializable{
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", age=" + age +
                 '}';
     }

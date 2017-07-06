@@ -16,13 +16,18 @@ public class HelloServiceImpl implements HelloService{
     private RestTemplate restTemplate;
 
 
+    /**
+     * 如果调用失败,则会执行fallbackMethod方法 注意:回调方法的参数应和原始参数一致
+     * @param name
+     * @return
+     */
     @Override
     @HystrixCommand(fallbackMethod = "sayCallBack")
     public String say(String name) {
         return restTemplate.getForObject("http://spring-cloud-service/say?name=" + name,String.class);
     }
 
-    public String sayCallBack(){
-        return "调用出错啦";
+    public String sayCallBack(String name){
+        return "调用出错啦" + name;
     }
 }
